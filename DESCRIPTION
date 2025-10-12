@@ -22,3 +22,8 @@ Imports:
     roxygen2,
     rprojroot,
     unglue
+URL: https://github.com/paocorrales/jtp
+BugReports: https://github.com/paocorrales/jtp/issues
+Remotes: 
+  github::ropensci-review-tools/pkgcheck,
+  github::ropensci-review-tools/pkgstats
