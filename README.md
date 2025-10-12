@@ -1,0 +1,181 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# jtp
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+`jtp` *ayuda* a docentes en la tarea de evaluar paquetes de R
+desarrollados por estudiantes. Requiere tener acceso al código fuente
+del paquete a evaluar y utiliza `rcmdcheck`, `covr` y `pkgcheck` para
+chequear elementos específicos definidos en [esta
+rúbrica](https://intro-programacion.netlify.app/d_checklist).
+
+La función principal `chequea_paquete()` devuelve una lista con el
+resultado de los checks y luego `genera_reporte()` produce un archivo
+`.md` con el resultado formateado que puede ser editado agregando
+feedback específico.
+
+Finalmente `publica_reporte()` toma el contenido del archivo `.md` y
+publica un issue en el repositorio del paquete.
+
+## Instalacion
+
+Podés instalar jtp con:
+
+``` r
+remotes::install_github("paocorrales/jtp")
+```
+
+## Ejemplo
+
+``` r
+library(jtp)
+```
+
+Asumiendo que existe un paquete prueba en `Documents/` tal vez porque
+fue clonado con `usethis::create_from_github()`:
+
+``` r
+checks <- chequea_paquete("~/Documents/paqueteprueba")
+```
+
+Luego, `genera_reporte()` creará un archivo `.md` con el resumne de los
+checks que puede ser editado para agregar feedback específico.
+
+``` r
+genera_reporte(checks)
+```
+
+Una vez que el resporte está listo, la función `publica_reporte()`
+permitirá abrir un issue en el repositorio del paquete. Esto requiere
+tener configurado el PAT.
+
+``` r
+publica_reporte(checks, "paqueteprueba_feedback.md")
+```
+
+El reporte tiene la siguiente pinta:
+
+# Reporte
+
+## General
+
+El paquete se instala correctamente ✅
+
+## Description
+
+**paqueteprueba v0.1.0**
+
+- Tìtulo: Paquete Para Aprender a Crear Paquetes
+- Descripción: Este paquete no está pensado para ser instalado, es un
+  paquete de juguete para aparender a desarrollar paquetes de R. Por
+  favor no lo instales.
+- Autores: Paola Corrales <paola.corrales@example.com> \[aut, cre\]
+  (ORCID: <https://orcid.org/0000-0003-1923-9129>)
+- Mantainer: Paola Corrales <paola.corrales@example.com>
+- Issues: <https://github.com/paocorrales/paqueteprueba/issues>
+
+### Licencia
+
+MIT + file LICENSELa licencia no es válida ❌
+
+## Codigo
+
+1.  c(“R/data.R”, “R/paqueteprueba-package.R”,
+    “R/pulgadas_a_centimetros.R”, “R/suma.R”)
+2.  c(NA, NA, “pulgadas_a_centimetros”, “suma”)
+3.  c(FALSE, FALSE, TRUE, TRUE)
+4.  c(0, 0, 15, 21.5)
+5.  c(0, 0, 15, 21.5)
+6.  c(9, 0, 11, 17)
+
+Detalles: \|file_name \|fn_name \|exported \| param_nchars_md\|
+param_nchars_mn\| num_doclines\|
+\|:————————–\|:———————-\|:——–\|—————:\|—————:\|————:\| \|R/data.R \|NA
+\|FALSE \| 0.0\| 0.0\| 9\| \|R/paqueteprueba-package.R \|NA \|FALSE \|
+0.0\| 0.0\| 0\| \|R/pulgadas_a_centimetros.R \|pulgadas_a_centimetros
+\|TRUE \| 15.0\| 15.0\| 11\| \|R/suma.R \|suma \|TRUE \| 21.5\| 21.5\|
+17\|
+
+### Dependencias
+
+| type     | package   | version   |
+|:---------|:----------|:----------|
+| Depends  | R         | \>= 2.10  |
+| Imports  | cli       | \*        |
+| Suggests | knitr     | \*        |
+| Suggests | rmarkdown | \*        |
+| Suggests | testthat  | \>= 3.0.0 |
+
+No importa paquetes enteros ✅
+
+## Documentacion
+
+### Ejemplos
+
+|  | file | title | tiene_ejemplo | ejemplos |
+|:---|:---|:---|:---|:---|
+| init | data.R | Conjunto de datos de ejemplo | FALSE | NULL |
+|  | paqueteprueba-package.R | NULL | FALSE | NULL |
+|  | pulgadas_a_centimetros.R | Convierte pulgadas a centímetros | TRUE | pulgadas_a_centimetros(7.5) |
+|  | suma.R | Suma dos numeros | TRUE | suma(2, 2) |
+| suma(1, 10) |  |  |  |  |
+
+### Viñetas
+
+Cantidad de viñetas: 1 La viñeta corre correctamente ✅
+
+## Rcmdchecks
+
+── R CMD check results
+──────────────────────────────────────────────────────── paqueteprueba
+0.1.0 ──── Duration: 17.6s
+
+❯ checking PDF version of manual without index … ERROR Re-running with
+no redirection of stdout/stderr. Hmm … looks like a package Converting
+parsed Rd’s to LaTeX Creating pdf output from LaTeX … Warning in
+texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet, :
+texi2dvi script/program not available, using emulation Error in
+texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet, :
+pdflatex is not available Warning in texi2dvi(file = file, pdf = TRUE,
+clean = clean, quiet = quiet, : texi2dvi script/program not available,
+using emulation Error in texi2dvi(file = file, pdf = TRUE, clean =
+clean, quiet = quiet, : pdflatex is not available Error in running
+tools::texi2pdf() You may want to clean up by ‘rm -Rf
+/tmp/Rtmpxjhin6/Rd2pdf6aa979a5d766’
+
+❯ checking DESCRIPTION meta-information … WARNING Invalid license file
+pointers: LICENSE
+
+❯ checking PDF version of manual … WARNING LaTeX errors when creating
+PDF version. This typically indicates Rd problems.
+
+1 error ✖ \| 2 warnings ✖ \| 0 notes ✔
+
+## Covr
+
+Covertura global: 56.25 % **Funciones:** pulgadas_a_centimetros: 33.33 %
+suma: 70 %
+
+## Ci
+
+Badges:
+
+### GitHub Actions
+
+| id | name | conclusion | sha | run_number | date |
+|---:|:---|:---|:---|---:|:---|
+| 16560010667 | pages build and deployment | success | 296aad | 16 | 2025-07-28 |
+| 16559987178 | pkgdown.yaml | success | 61bb87 | 16 | 2025-07-28 |
+| 16560006778 | sacrilegious-terrapin: linux, m1-san, macos-arm64, windows | success | 61bb87 | 1 | 2025-07-28 |
+
+## Git
+
+Número de autores de commits: 2 Número de commits: 26
+
+## Extras
+
+Usan TRUE o FALSE ✅ Estructura de archivos correcta ✅
