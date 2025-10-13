@@ -64,16 +64,35 @@ chequea_paquete <- function(ruta_paquete) {
 
   # Todas las funciones y datos están documentados
 
-  r_files <- fs::dir_ls (fs::path (ruta_paquete, "R"), regexp = "\\.(R|r|q)$")
-  state$documentacion$ejemplos <- lapply(r_files, function (f) {
+  r_files <- fs::dir_ls (fs::path(ruta_paquete, "R"), regexp = "\\.(R|r|q)$")
+  state$documentacion$ejemplos <- lapply(r_files, function(f) {
 
-    b <- roxygen2::parse_file(f, env = NULL)
+    other <- utils::capture.output(b <- roxygen2::parse_file(f, env = NULL), type = "message")
 
-    list(file = basename(f),
-         title = roxygen2::block_get_tag_value(b[[1]], "title"),
-         tiene_ejemplo = roxygen2::block_has_tags(b[[1]], "examples"),
-         ejemplos = roxygen2::block_get_tag_value(b[[1]], "examples"))
+    if (length(b) == 0) {
 
+      summary <- list(file = basename(f),
+                      title = "roxygen2 no puede parsear el archivo",
+                      tiene_ejemplo = NA,
+                      ejemplos = paste0("<details><summary>Ejemplos</summary><p>", NA, "</p></details>"),
+                      mensajes = other)
+    } else {
+
+      ejemplo <- as.character(roxygen2::block_get_tag_value(b[[1]], "examples"))
+      ejemplo <- gsub("\\n", "<br>", ejemplo)
+
+      summary <- list(file = basename(f),
+                      title = roxygen2::block_get_tag_value(b[[1]], "title"),
+                      tiene_ejemplo = roxygen2::block_has_tags(b[[1]], "examples"),
+                      ejemplos = paste0("<details><summary>Ejemplos</summary><p>", ejemplo, "</p></details>"),
+                      mensajes = NA)
+    }
+
+    if (length(other)!= 0){
+      summary$mensajes <- other
+    }
+
+    return(summary)
   }) |> Reduce(f = "rbind")
 
   class(state$documentacion) <- "evaluacion_documentacion"

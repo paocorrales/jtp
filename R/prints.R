@@ -2,19 +2,38 @@
 
 #' @export
 print.evaluacion_description <- function(x, ...) {
+
+  autores <- lapply(x$autores, function(person) {
+
+    person <- unclass(person[[1]])
+
+    list(
+      nombre = paste(person[[1]]$given, person[[1]]$family),
+      rol = paste(person[[1]]$role, collapse = " - "),
+      comentarios = person[[1]]$comment
+    )
+
+  }) |>
+    Reduce(f = "rbind")
+
+
   with(x, cat(glue::glue("**{nombre_paquete} v{version}** \n
                           * T\U00EDtulo: {titulo}
                           * Descripci\U00F3n: {descripcion}
-                          * Autores: {autores}
                           * Mantainer: {mantainer}
                           * Issues: {issue_url} \n
-                         ### Licencia \n
-                         {licencia}")))
+                         ")))
+
+
+  cat("\n### Autores\n")
+  cat(knitr::kable(autores), sep = "\n")
+  cat("\n")
+  with(x, cat(glue::glue("\n### Licencia \n{licencia}\n")))
 
   if (x$licencia_valida) {
-    cat("La licencia es v\U00E1lida", emoji::emoji("white_check_mark"))
+    cat("\nLa licencia es v\U00E1lida", emoji::emoji("white_check_mark"))
   } else {
-    cat("La licencia no es v\U00E1lida", emoji::emoji("x"))
+    cat("\nLa licencia no es v\U00E1lida", emoji::emoji("x"))
   }
 }
 
@@ -31,7 +50,7 @@ print.evaluacion_general <- function(x, ...) {
 #' @export
 print.evaluacion_codigo <- function(x, ...) {
 
-  cat(paste0(paste(seq_along(x$funciones), x$funciones, sep = ". "), collapse = " \n"))
+  # cat(paste0(paste(seq_along(x$funciones), x$funciones, sep = ". "), collapse = " \n"))
   cat("\n\nDetalles:\n")
   cat(knitr::kable(x$funciones), sep = "\n")
 
