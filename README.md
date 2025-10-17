@@ -69,36 +69,41 @@ El paquete se instala correctamente ✅
 
 **paqueteprueba v0.1.0**
 
-- Tìtulo: Paquete Para Aprender a Crear Paquetes
+- Título: Paquete Para Aprender a Crear Paquetes
 - Descripción: Este paquete no está pensado para ser instalado, es un
   paquete de juguete para aparender a desarrollar paquetes de R. Por
   favor no lo instales.
-- Autores: Paola Corrales <paola.corrales@example.com> \[aut, cre\]
-  (ORCID: <https://orcid.org/0000-0003-1923-9129>)
 - Mantainer: Paola Corrales <paola.corrales@example.com>
 - Issues: <https://github.com/paocorrales/paqueteprueba/issues>
 
+### Autores
+
+| x              |
+|:---------------|
+| Paola Corrales |
+
+| x         |
+|:----------|
+| aut - cre |
+
+|       | x                   |
+|:------|:--------------------|
+| ORCID | 0000-0003-1923-9129 |
+
 ### Licencia
 
-MIT + file LICENSELa licencia no es válida ❌
+MIT + file LICENSE La licencia no es válida ❌
 
 ## Codigo
 
-1.  c(“R/data.R”, “R/paqueteprueba-package.R”,
-    “R/pulgadas_a_centimetros.R”, “R/suma.R”)
-2.  c(NA, NA, “pulgadas_a_centimetros”, “suma”)
-3.  c(FALSE, FALSE, TRUE, TRUE)
-4.  c(0, 0, 15, 21.5)
-5.  c(0, 0, 15, 21.5)
-6.  c(9, 0, 11, 17)
+Detalles:
 
-Detalles: \|file_name \|fn_name \|exported \| param_nchars_md\|
-param_nchars_mn\| num_doclines\|
-\|:————————–\|:———————-\|:——–\|—————:\|—————:\|————:\| \|R/data.R \|NA
-\|FALSE \| 0.0\| 0.0\| 9\| \|R/paqueteprueba-package.R \|NA \|FALSE \|
-0.0\| 0.0\| 0\| \|R/pulgadas_a_centimetros.R \|pulgadas_a_centimetros
-\|TRUE \| 15.0\| 15.0\| 11\| \|R/suma.R \|suma \|TRUE \| 21.5\| 21.5\|
-17\|
+| file_name | fn_name | exported | param_nchars_md | param_nchars_mn | num_doclines |
+|:---|:---|:---|---:|---:|---:|
+| R/data.R | NA | FALSE | 0.0 | 0.0 | 9 |
+| R/paqueteprueba-package.R | NA | FALSE | 0.0 | 0.0 | 0 |
+| R/pulgadas_a_centimetros.R | pulgadas_a_centimetros | TRUE | 15.0 | 15.0 | 11 |
+| R/suma.R | suma | TRUE | 21.5 | 21.5 | 17 |
 
 ### Dependencias
 
@@ -116,23 +121,21 @@ No importa paquetes enteros ✅
 
 ### Ejemplos
 
-|  | file | title | tiene_ejemplo | ejemplos |
-|:---|:---|:---|:---|:---|
-| init | data.R | Conjunto de datos de ejemplo | FALSE | NULL |
-|  | paqueteprueba-package.R | NULL | FALSE | NULL |
-|  | pulgadas_a_centimetros.R | Convierte pulgadas a centímetros | TRUE | pulgadas_a_centimetros(7.5) |
-|  | suma.R | Suma dos numeros | TRUE | suma(2, 2) |
-| suma(1, 10) |  |  |  |  |
+|  | file | title | tiene_ejemplo | ejemplos | mensajes |
+|:---|:---|:---|:---|:---|:---|
+| init | data.R | Conjunto de datos de ejemplo | FALSE |  | NA |
+|  | paqueteprueba-package.R | NULL | FALSE |  | NA |
+|  | pulgadas_a_centimetros.R | Convierte pulgadas a centímetros | TRUE |  | NA |
+|  | suma.R | Suma dos numeros | TRUE |  | NA |
 
-### Viñetas
+### Vi༞tas
 
-Cantidad de viñetas: 1 La viñeta corre correctamente ✅
+Cantidad de vi༞tas: 1 La vi༞ta corre correctamente ✅
 
 ## Rcmdchecks
 
-── R CMD check results
-──────────────────────────────────────────────────────── paqueteprueba
-0.1.0 ──── Duration: 17.6s
+── R CMD check results ───────────────────── paqueteprueba 0.1.0 ────
+Duration: 20.1s
 
 ❯ checking PDF version of manual without index … ERROR Re-running with
 no redirection of stdout/stderr. Hmm … looks like a package Converting
@@ -145,7 +148,7 @@ clean = clean, quiet = quiet, : texi2dvi script/program not available,
 using emulation Error in texi2dvi(file = file, pdf = TRUE, clean =
 clean, quiet = quiet, : pdflatex is not available Error in running
 tools::texi2pdf() You may want to clean up by ‘rm -Rf
-/tmp/Rtmpxjhin6/Rd2pdf6aa979a5d766’
+/tmp/Rtmpvf6r4q/Rd2pdf7f5362cf989f1’
 
 ❯ checking DESCRIPTION meta-information … WARNING Invalid license file
 pointers: LICENSE
