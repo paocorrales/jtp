@@ -17,7 +17,8 @@ chequea_paquete <- function(ruta_paquete) {
   namespace <- parseNamespaceFile(basename(ruta_paquete), file.path(ruta_paquete, ".."))
   check <- rcmdcheck::rcmdcheck(ruta_paquete, quiet = TRUE)
   cov <- covr::package_coverage(ruta_paquete)
-  git <- pkgcheck:::pkginfo_git_info(ruta_paquete)
+  git <- gert::git_log (repo = ruta_paquete, max = 1e6)
+
 
   state <- list()
 
@@ -136,8 +137,10 @@ chequea_paquete <- function(ruta_paquete) {
   state$description$issue_url <- description$get_field("BugReports")
   # Uso de Git
 
-  state$git$n_commits <- git$num_commits
-  state$git$n_autores <- git$num_authors
+  state$git$n_commits <- nrow(git)
+  state$git$n_autores <- length(unique(git$author))
+  state$git$commits_author <- git |>
+    dplyr::summarise(commits = dplyr::n(), .by = author)
 
   # TODO: list number of issues and pull requests
 
@@ -153,4 +156,5 @@ chequea_paquete <- function(ruta_paquete) {
   return(state)
 }
 
+utils::globalVariables("author")
 

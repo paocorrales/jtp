@@ -127,8 +127,9 @@ print.evaluacion_ci <- function(x, ...) {
 #' @export
 print.evaluacion_git <- function(x, ...) {
 
-  cat(paste0("N\U00FAmero de autores de commits: ", x$n_autores, "\n"))
-  cat(paste0("N\U00FAmero de commits: ", x$n_commits, "\n"))
+  cat(paste0("* N\U00FAmero de autores de commits: ", x$n_autores, "\n"))
+  cat(paste0("* N\U00FAmero de commits: ", x$n_commits, "\n\n"))
+  cat(knitr::kable(x$commits_author), sep = "\n")
 
 }
 
